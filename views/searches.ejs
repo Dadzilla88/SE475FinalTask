@@ -1,0 +1,38 @@
+<html lang="en-us">
+
+<head>
+	<%- include('header'); %>
+</head>
+
+<body>
+	<div class="jumbotron">
+		<div class="text-center">
+			<h2>Please buy something :)</h2>
+		</div>
+	</div>
+
+	<div class="container col-sm-12">
+		<table class="col-sm-10 offset-sm-1 text-center table table-striped table-dark">
+			<tr>
+				<th>
+					What you searched
+				</th>
+				<th>
+					Query Ran
+				</th>
+			</tr>
+		<% prevSearches.forEach((item,i) => { %>
+			<tr>
+				<td>
+					<%= item %>
+				</td>
+				<td>
+					Tools.find(Name: { $regex: /<%= item %>/i } )
+				</td>
+			</tr>
+		<% }) %>
+		</table>
+	</div>
+</body>
+
+</html>

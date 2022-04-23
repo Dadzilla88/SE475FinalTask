@@ -1,31 +1,52 @@
 <html lang="en-us">
-		<head>
-			<%- include('header'); %>
-		</head>
-		<body>
-			<div class="jumbotron">
-				<div class="text-center">
-					<h2>Please buy something :)</h2>
-				</div>
-			</div>
 
-			<div class="container col-sm-12 text-center">
-			<table class="col-sm-10 text-center table table-striped table-dark">
+<head>
+	<%- include('header'); %>
+</head>
+
+<body>
+	<div class="jumbotron">
+		<div class="text-center">
+			<h2>Please buy something :)</h2>
+		</div>
+	</div>
+
+	<div class="container col-sm-12">
+		<table class="col-sm-10 offset-sm-1 text-center table table-striped table-dark">
 			<tr>
-			<th>Name</th>
-			<th>Price</th>
-			<th>Description</th>
-			<th>Image</th>
+				<th>Name</th>
+				<th>Price</th>
+				<th>Description</th>
+				<th>Image</th>
+				<th></th>
 			</tr>
 			<% Tools.forEach((item,i) => { %>
-			    <tr>
-                <td><p> <%= item.Name %> </p></td>
-                <td><p> <%= item.Price %> </p></td>
-                <td><p> <%= item.Description %> </p></td>
-                <td><image src='/assets/<%= item.Picture %>' width=200px height=200px /></td>
-                </tr>
+			<tr>
+				<td class="align-middle">
+					<p>
+						<%= item.Name %>
+					</p>
+				</td>
+				<td class="align-middle">
+					<p>
+						<%= item.Price %>
+					</p>
+				</td>
+				<td class="align-middle">
+					<p>
+						<%= item.Description %>
+					</p>
+				</td>
+				<td class="align-middle">
+					<image src='/assets/<%= item.Picture %>' width=200px height=200px />
+				</td>
+				<td class="align-middle">
+					<button type="button" class="btn btn-warning" name="button">Buy</button>
+				</td>
+			</tr>
 			<% }) %>
-			</table>
-            </div>
-		</body>
+		</table>
+	</div>
+</body>
+
 </html>

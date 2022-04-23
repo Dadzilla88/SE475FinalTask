@@ -31,7 +31,7 @@ const options = {
 	cert: fs.readFileSync('cert.pem')
 };
 
-let names = []
+let previousSearches = []
 
 //Create models for mongo db - Start
 const Accounts = mongoose.model('Accounts', {
@@ -97,12 +97,30 @@ app.get('/', async function(req, res) {
 		// res.status(200).send("Hello There :)")
 		//To display HTML we do this:
 
-		var tools = await Tools.find({ }).exec();
-		console.log(tools);
+		let tools = await Tools.find({ }).exec();
+		// console.log(tools);
 		res.render('index', {'Settings': {'Username': getName(req)}, "Tools": tools, 'Error': ''})
 		/*res.send(tools);*/
 	} catch (error) {
 		console.log("Caught Error in /: " + error);
+		res.status(500).send("Ran into an Error, please try again")
+	}
+});
+
+app.post('/', async function(req, res) {
+	try {
+		console.log(req.body);
+		previousSearches.push(req.body.search)
+		let re = new RegExp(req.body.search, 'i');
+		console.log(re);
+
+		let tools = await Tools.find({Name: { $regex : re } }).exec();
+		console.log(tools);
+		res.render('index', {'Settings': {'Username': getName(req)}, "Tools": tools, 'Error': ''})
+		/*res.send(tools);*/
+		// res.send('hi')
+	} catch (error) {
+		console.log("Caught Error in post /: " + error);
 		res.status(500).send("Ran into an Error, please try again")
 	}
 });
@@ -117,6 +135,20 @@ app.get('/aboutus', function(req, res) {
 		res.render('aboutus', {'Settings': {'Username':`${getName(req)}`}, 'Error': ''})
 	} catch (error) {
 		console.log("Caught Error in /aboutus: " + error);
+		res.status(500).send("Ran into an Error, please try again")
+	}
+});
+
+app.get('/searches', function(req, res) {
+	try {
+		//This will send a response (res is short for response, req is short for request)
+		//We can set a specific HTTP code (if we want but we dont need too)
+		//The .send will send what ever we have inside it.
+		// res.status(200).send("Hello There :)")
+		//To display HTML we do this:
+		res.render('searches', {'Settings': {'Username':`${getName(req)}`}, 'prevSearches': previousSearches})
+	} catch (error) {
+		console.log("Caught Error in /searches: " + error);
 		res.status(500).send("Ran into an Error, please try again")
 	}
 });
@@ -207,7 +239,7 @@ app.post('/login', async function(req, res) {
 			} else{
 				res.cookie("Username", user.Username, {maxAge: 7000000});
 				console.log("Login Successful");
-				res.render('chat', {'Username': user.Username})
+				res.redirect('/')
 			}
 		} catch (error) {
 			console.log(`Caught Error in post /login: ${error}`);
