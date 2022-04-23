@@ -1,0 +1,56 @@
+<html lang="en-us">
+
+<head>
+	<%- include('header'); %>
+</head>
+
+<body>
+	<div class="jumbotron" style="background-color: grey">
+		<div class="text-center">
+			<h2 class="anime">Login</h2>
+		</div>
+	</div>
+	<div class="offset-sm-3 col-sm-6">
+		<% if (Settings.Error.message != "") { %>
+			<div class="alert alert-danger">
+				<strong><%= Settings.Error.message %></strong>
+			</div>
+		<% } %>
+		<!-- <form class="form" action="sign_up" method="post" onsubmit="return validate(this)"> -->
+		<form class="form" action="login" method="post">
+			<div class="form-group">
+				<label for="Username">Username</label>
+				<input type="text" class="form-control" id="Username" placeholder="JohnDoe" name="Username" required>
+			</div>
+			<div class="form-group">
+				<label for="Password">Password</label>
+				<input type="password" class="form-control" id="Password" placeholder="Password" name="Password" required>
+			</div>
+			<button type="submit" class="btn btn-primary">Submit</button>
+			<button class="btn btn-outline-primary">Forgot Username</button>
+			<button class="btn btn-outline-primary">Forgot Password</button>
+		</form>
+	</div>
+	<!-- <script type="text/javascript">
+		function validate() {
+			if (document.getElementById('Password').value == document.getElementById('ConfirmPassword').value) {
+				console.log("YUP");
+				return true;
+			} else {
+				console.log("NOPE");
+				return false;
+			}
+		}
+	</script> -->
+	<!-- <script type="text/javascript">
+		const animeObject = anime({
+			targets: 'h2',
+			translateX: 250,
+			rotate: '1turn',
+			backgroundColor: '#FFF',
+			duration: 800
+		});
+	</script> -->
+</body>
+
+</html>

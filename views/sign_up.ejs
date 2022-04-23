@@ -1,0 +1,58 @@
+<html lang="en-us">
+
+<head>
+	<%- include('header'); %>
+</head>
+
+<body>
+	<div class="jumbotron" style="background-color: grey">
+		<div class="text-center">
+			<h2 class="anime">Sign Up!</h2>
+		</div>
+	</div>
+	<div class="offset-sm-3 col-sm-6">
+		<% if (Settings.Error.message != "") { %>
+			<div class="alert alert-danger">
+				<strong><%= Settings.Error.message %></strong>
+			</div>
+		<% } %>
+		<!-- <form class="form" action="sign_up" method="post" onsubmit="return validate(this)"> -->
+		<form class="form" action="sign_up" method="post" oninput='ConfirmPassword.setCustomValidity(ConfirmPassword.value != Password.value ? "Passwords do not match." : "")'>
+			<div class="form-group">
+				<label for="Username">Username</label>
+				<% if (Settings.Username != "") { %>
+					<input type="text" class="form-control" id="Username" value="<%= Settings.Username %>" name="Username" required>
+				<% } else { %>
+					<input type="text" class="form-control" id="Username" placeholder="JohnDoe" name="Username" required>
+				<% } %>
+
+			</div>
+			<div class="form-group">
+				<label for="Email">Email address</label>
+				<% if (Settings.Email != "") { %>
+					<input type="email" class="form-control" id="Email" aria-describedby="emailHelp" value="<%= Settings.Email %>" name="Email" required>
+				<% } else { %>
+					<input type="email" class="form-control" id="Email" aria-describedby="emailHelp" placeholder="JohnDoe@gmail.com" name="Email" required>
+				<% } %>
+
+				<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+			</div>
+			<div class="form-group">
+				<label for="Password">Password</label>
+				<% if (Settings.Password != "") { %>
+					<input type="password" class="form-control" id="Password" value="<%= Settings.Password %>" name="Password" required>
+				<% } else { %>
+					<input type="password" class="form-control" id="Password" placeholder="Password" name="Password" required>
+				<% } %>
+
+			</div>
+			<div class="form-group">
+				<label for="ConfirmPassword">Confirm Password</label>
+				<input type="password" class="form-control" id="ConfirmPassword" placeholder="Password" name="ConfirmPassword" required>
+			</div>
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</form>
+	</div>
+</body>
+
+</html>
