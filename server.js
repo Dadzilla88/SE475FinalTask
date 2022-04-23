@@ -54,20 +54,53 @@ const Accounts = mongoose.model('Accounts', {
 	}
 });
 
+const Tools = mongoose.model('Tools',{
+	Name: String,
+	Name: {
+		type: String,
+		unique: true,
+		required: true,
+		trim: true
+	},
+	Price: {
+		type: String,
+		unique: true,
+		required: true,
+		trim: true
+	},
+	Picture: {
+		type: String,
+		unique: true,
+		required: true,
+		trim: true
+	},
+	Description: {
+		type: String,
+		unique: true,
+		required: true,
+		trim: true
+	}
+
+})
+
 
 //HTTP --------------------------------------- Start
 //Paths -- These are functions to handle if someone goes to a specific endpoint
 
 //for this one, if someone went to localhost:7000/ we would return what ever we have in this function
 //If we had a user list we wanted to show, we could create a path of /users and that would display the user list
-app.get('/', function(req, res) {
+app.get('/', async function(req, res) {
 	try {
 		//This will send a response (res is short for response, req is short for request)
 		//We can set a specific HTTP code (if we want but we dont need too)
 		//The .send will send what ever we have inside it.
 		// res.status(200).send("Hello There :)")
 		//To display HTML we do this:
-		res.render('index', {'Settings': {'Username':`${getName(req)}`}, 'Error': ''})
+
+		var tools = await Tools.find({ }).exec();
+		console.log(tools);
+		res.render('index', {'Settings': {'Username': getName(req)}, "Tools": tools, 'Error': ''})
+		/*res.send(tools);*/
 	} catch (error) {
 		console.log("Caught Error in /: " + error);
 		res.status(500).send("Ran into an Error, please try again")
