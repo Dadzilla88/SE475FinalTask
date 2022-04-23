@@ -67,7 +67,7 @@ app.get('/', function(req, res) {
 		//The .send will send what ever we have inside it.
 		// res.status(200).send("Hello There :)")
 		//To display HTML we do this:
-		res.render('index', {'Error': ''})
+		res.render('index', {'Settings': {'Username':`${getName(req)}`}, 'Error': ''})
 	} catch (error) {
 		console.log("Caught Error in /: " + error);
 		res.status(500).send("Ran into an Error, please try again")

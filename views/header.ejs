@@ -9,6 +9,35 @@
 	<body>
 		<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 			<a class="navbar-brand" href="/">Black Smithing</a>
+			<form class="nav navbar-nav col-sm-6 ml-auto form-inline">
+				<input class="form-control col-sm-10" type="search" placeholder="Search" aria-label="Search">&nbsp&nbsp
+				<button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
+			</form>
+			<ul class="nav navbar-nav ml-auto">
+				<% if(Settings.Username != "") { %>
+					<li class="nav-item">
+						<a class="nav-link" href="cart"><span class="fas fa-shopping-cart"></span> Cart</a>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAccount" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= Settings.Username %></a>
+						<div class="dropdown-menu dropdown-menu-right">
+							<a class="dropdown-item" href="#">Account</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="#">Orders</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="logout">Log Out</a>
+						</div>
+					</li>
+				<% } else { %>
+					<li class="nav-item">
+						<a class="nav-link" href="sign_up"><span class="fas fa-user"></span> Sign Up</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="login"><span class="fas fa-sign-in-alt"></span> Login</a>
+					</li>
+				<% } %>
+
+			</ul>
 		</nav>
 		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
