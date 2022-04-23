@@ -74,6 +74,20 @@ app.get('/', function(req, res) {
 	}
 });
 
+app.get('/aboutus', function(req, res) {
+	try {
+		//This will send a response (res is short for response, req is short for request)
+		//We can set a specific HTTP code (if we want but we dont need too)
+		//The .send will send what ever we have inside it.
+		// res.status(200).send("Hello There :)")
+		//To display HTML we do this:
+		res.render('aboutus', {'Settings': {'Username':`${getName(req)}`}, 'Error': ''})
+	} catch (error) {
+		console.log("Caught Error in /aboutus: " + error);
+		res.status(500).send("Ran into an Error, please try again")
+	}
+});
+
 app.get('/sign_up', function(req, res) {
 	try {
 		res.render(`sign_up`, {
