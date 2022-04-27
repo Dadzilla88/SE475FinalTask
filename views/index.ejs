@@ -19,6 +19,7 @@
 				<th>Description</th>
 				<th>Image</th>
 				<th></th>
+				<th></th>
 			</tr>
 			<% Tools.forEach((item,i) => { %>
 			<tr>
@@ -43,10 +44,33 @@
 				<td class="align-middle">
 					<button type="button" class="btn btn-warning" name="button">Buy</button>
 				</td>
+				<td class="align-middle">
+					<!-- <form class="form" action="/" method="delete">
+						<input id='<%= item.Name %>' name='<%= item.Name %>' value='<%= item.Name %>' hidden>
+						<button type="submit" class="btn btn-danger">Delete</button>
+					</form> -->
+					<button type="button" class="btn btn-danger" name="button" onclick="deleteTool('<%= item.Name %>')">Delete</button>
+				</td>
 			</tr>
 			<% }) %>
 		</table>
 	</div>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<script>
+		function deleteTool(name) {
+			axios({
+				method: 'delete',
+				url: '/',
+				data: {
+					'name': name
+				}
+			}).then(() =>{
+				console.log('in then')
+				location.reload();
+			});
+
+		}
+	</script>
 </body>
 
 </html>

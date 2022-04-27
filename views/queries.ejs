@@ -15,7 +15,10 @@
 		<table class="col-sm-10 offset-sm-1 text-center table table-striped table-dark">
 			<tr>
 				<th>
-					What you searched
+					Tool
+				</th>
+				<th>
+					Type of query
 				</th>
 				<th>
 					Query Ran
@@ -24,11 +27,20 @@
 		<% prevSearches.forEach((item,i) => { %>
 			<tr>
 				<td>
-					<%= item %>
+					<%= item.name %>
 				</td>
 				<td>
-					Tools.find(Name: { $regex: /<%= item %>/i } )
+					<%= item.type %>
 				</td>
+				<% if(item.type == 'search') { %>
+				<td>
+					Tools.find(Name: { $regex: /<%= item.name %>/i } )
+				</td>
+				<% } else { %>
+				<td>
+					Tools.deleteOne(Name: <%= item.name %> )
+				</td>
+				<% } %>
 			</tr>
 		<% }) %>
 		</table>

@@ -110,7 +110,7 @@ app.get('/', async function(req, res) {
 app.post('/', async function(req, res) {
 	try {
 		console.log(req.body);
-		previousSearches.push(req.body.search)
+		previousSearches.push({type: 'search', name: req.body.search})
 		let re = new RegExp(req.body.search, 'i');
 		console.log(re);
 
@@ -119,6 +119,19 @@ app.post('/', async function(req, res) {
 		res.render('index', {'Settings': {'Username': getName(req)}, "Tools": tools, 'Error': ''})
 		/*res.send(tools);*/
 		// res.send('hi')
+	} catch (error) {
+		console.log("Caught Error in post /: " + error);
+		res.status(500).send("Ran into an Error, please try again")
+	}
+});
+
+app.delete('/', async function(req, res) {
+	try {
+		console.log('in delete');
+		console.log(req.body);
+		previousSearches.push({type: 'delete', name: req.body.name})
+		await Tools.deleteOne({Name: req.body.name }).exec();
+		res.send('done')
 	} catch (error) {
 		console.log("Caught Error in post /: " + error);
 		res.status(500).send("Ran into an Error, please try again")
@@ -139,16 +152,16 @@ app.get('/aboutus', function(req, res) {
 	}
 });
 
-app.get('/searches', function(req, res) {
+app.get('/queries', function(req, res) {
 	try {
 		//This will send a response (res is short for response, req is short for request)
 		//We can set a specific HTTP code (if we want but we dont need too)
 		//The .send will send what ever we have inside it.
 		// res.status(200).send("Hello There :)")
 		//To display HTML we do this:
-		res.render('searches', {'Settings': {'Username':`${getName(req)}`}, 'prevSearches': previousSearches})
+		res.render('queries', {'Settings': {'Username':`${getName(req)}`}, 'prevSearches': previousSearches})
 	} catch (error) {
-		console.log("Caught Error in /searches: " + error);
+		console.log("Caught Error in /queries: " + error);
 		res.status(500).send("Ran into an Error, please try again")
 	}
 });
